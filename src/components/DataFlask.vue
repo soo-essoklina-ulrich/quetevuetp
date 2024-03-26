@@ -24,7 +24,7 @@
             <td>{{item.libelle}}</td>
             <td>{{item.description}}</td>
             <td>{{item.categorie}}</td>
-            <td> <img :src="item.image" alt="image" width="100" height="100"></td>
+            <td> <img :src="getimagebyurl(item.image)" :alt="item.libelle" width="100" height="100"></td>
           </tr>
 
           </tbody>
@@ -40,6 +40,7 @@
 
 import axios from 'axios';
 
+const url = 'http://127.0.0.1:8081/';
 export default {
   name: 'DataFlask',
   data() {
@@ -53,23 +54,16 @@ export default {
   methods: {
     async getDataFromApi() {
       await axios
-          .get('http://localhost:8081/data')
+          .get(url + 'charity-api/data')
           .then(value => {
-            const responseData = value.data.data
-
-            this.donne = responseData.map(item => {
-              return {
-                categorie: item.categorie,
-                description: item.description,
-                image: `http://localhost:8081/static/img/${item.image}`, // Chemin vers l'image
-                libelle: item.libelle
-              };
-            });
-            console.log(this.donne )
+            this.donne = value.data.projets
           })
           .catch(error => {
             console.log(error)
           })
+    },
+    getimagebyurl(nom){
+        return url + 'charity-api/static/img/' + nom
     }
   },
   props: {}
