@@ -1,15 +1,18 @@
 <template>
   <div>
     <h1>Data Flask Categorie</h1>
+    <nav>
+      <router-link to="/addc">Ajouter</router-link> |
+      <router-link to="/listc">Liste</router-link>
+    </nav>
 
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import axios from 'axios';
 
-const url = 'http://127.0.0.1:8081/';
 export default {
   name: 'ApiCategories',
 
